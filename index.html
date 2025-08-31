@@ -3,16 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>最小構成サイト</title>
+    <title>ボイプラ2 ユメキ練習生関連のYoutube再生数推移</title>
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
+    <header class="hero">
+      <div class="hero-inner">
+        <h1 class="hero-title">ボイプラ2 ユメキ練習生関連の<br/>Youtube再生数推移</h1>
+        <p class="hero-sub">毎日の再生数の変化を、楽曲ごとに可視化</p>
+      </div>
+    </header>
     <main class="container">
-      <h1>ボイプラ2 ユメキ練習生関連のYoutube再生数推移</h1>
-      <div id="loading">読み込み中…</div>
-      <canvas id="myChart" aria-label="YouTube再生数推移" role="img"></canvas>
-      <div id="customLegend" class="legend"></div>
+      <div class="chart-card">
+        <div id="loading">読み込み中…</div>
+        <canvas id="myChart" aria-label="YouTube再生数推移" role="img"></canvas>
+        <div id="customLegend" class="legend"></div>
+      </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
     <script src="./script.js" defer></script>
