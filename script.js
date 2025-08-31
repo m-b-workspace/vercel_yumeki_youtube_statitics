@@ -85,6 +85,7 @@ fetch(API_URL)
           }
         },
         plugins: {
+          legend: { display: false },
           tooltip: {
             mode: 'index',
             intersect: false,
@@ -96,6 +97,9 @@ fetch(API_URL)
         }
       }
     });
+
+    // カスタム凡例を描画
+    renderCustomLegend(myChart);
 
   })
   .catch(error => {
@@ -113,4 +117,41 @@ function hexToRgba(hex, alpha) {
   const g = (bigint >> 8) & 255;
   const b = bigint & 255;
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+// カスタム凡例（3列グリッド、クリックで表示/非表示）
+function renderCustomLegend(chart) {
+  const container = document.getElementById('customLegend');
+  if (!container) return;
+  container.innerHTML = '';
+
+  const { datasets } = chart.data;
+  datasets.forEach((ds, index) => {
+    const item = document.createElement('div');
+    item.className = 'legend-item' + (chart.isDatasetVisible(index) ? '' : ' disabled');
+    item.setAttribute('role', 'button');
+    item.setAttribute('aria-pressed', String(chart.isDatasetVisible(index)));
+    item.dataset.index = String(index);
+
+    const swatch = document.createElement('span');
+    swatch.className = 'legend-swatch';
+    swatch.style.backgroundColor = Array.isArray(ds.borderColor) ? ds.borderColor[0] : ds.borderColor;
+
+    const label = document.createElement('span');
+    label.className = 'legend-label';
+    label.textContent = ds.label || `シリーズ ${index + 1}`;
+
+    item.appendChild(swatch);
+    item.appendChild(label);
+
+    item.addEventListener('click', () => {
+      const visible = chart.isDatasetVisible(index);
+      chart.setDatasetVisibility(index, !visible);
+      item.classList.toggle('disabled', visible);
+      item.setAttribute('aria-pressed', String(!visible));
+      chart.update('none');
+    });
+
+    container.appendChild(item);
+  });
 }
