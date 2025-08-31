@@ -1,11 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const button = document.getElementById('helloButton');
-  if (!button) return;
-
-  button.addEventListener('click', () => {
-    alert('ようこそ！');
-  });
-});
+document.addEventListener('DOMContentLoaded', () => {});
 
 
 // Vercelのサーバレス関数（環境変数GAS_API_URLを参照）
@@ -98,9 +91,8 @@ fetch(API_URL)
       }
     });
 
-    // カスタム凡例とラジオ制御を描画
+    // カスタム凡例を描画
     renderCustomLegend(myChart);
-    renderRadioControls(myChart);
 
   })
   .catch(error => {
@@ -154,64 +146,5 @@ function renderCustomLegend(chart) {
     });
 
     container.appendChild(item);
-  });
-}
-
-// ラジオボタン群（全て/各曲）を生成し、選択で表示シリーズを切替
-function renderRadioControls(chart) {
-  const controls = document.getElementById('controls');
-  if (!controls) return;
-  controls.innerHTML = '';
-
-  const makeItem = (value, text, checked = false) => {
-    const wrap = document.createElement('label');
-    wrap.className = 'control-item';
-    const input = document.createElement('input');
-    input.type = 'radio';
-    input.name = 'seriesFilter';
-    input.value = String(value);
-    input.checked = checked;
-    const span = document.createElement('span');
-    span.className = 'control-label';
-    span.textContent = text;
-    wrap.appendChild(input);
-    wrap.appendChild(span);
-    return { wrap, input };
-  };
-
-  // 「すべて」を先頭に
-  const all = makeItem('all', 'すべて', true);
-  controls.appendChild(all.wrap);
-
-  // 各データセットを順番に
-  chart.data.datasets.forEach((ds, i) => {
-    const item = makeItem(String(i), ds.label || `シリーズ ${i + 1}`);
-    controls.appendChild(item.wrap);
-  });
-
-  const onChange = (value) => {
-    if (value === 'all') {
-      chart.data.datasets.forEach((_, i) => {
-        chart.setDatasetVisibility(i, true);
-      });
-    } else {
-      const idx = Number(value);
-      chart.data.datasets.forEach((_, i) => {
-        chart.setDatasetVisibility(i, i === idx);
-      });
-    }
-    // y軸を可視データに合わせて再スケール
-    chart.options.scales.y.suggestedMin = undefined;
-    chart.options.scales.y.suggestedMax = undefined;
-    chart.update();
-    // 凡例も同期
-    renderCustomLegend(chart);
-  };
-
-  controls.addEventListener('change', (e) => {
-    const target = e.target;
-    if (target && target.name === 'seriesFilter') {
-      onChange(target.value);
-    }
   });
 }

@@ -115,33 +115,3 @@ canvas#myChart {
   font-size: 0.9rem;
 }
 
-/* ラジオボタン群（凡例の隣） */
-.controls {
-  width: min(1040px, 100%);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  align-items: center;
-  margin: 0.25rem 0 0.5rem;
-}
-
-.control-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  background: var(--card);
-  border: 1px solid var(--border);
-  padding: 0.3rem 0.6rem;
-  border-radius: 999px;
-}
-
-.control-item input[type="radio"] {
-  accent-color: var(--accent);
-}
-
-.control-label {
-  color: var(--fg);
-  font-size: 0.9rem;
-}
-
-
