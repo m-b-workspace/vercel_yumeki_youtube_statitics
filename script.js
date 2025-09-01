@@ -64,9 +64,23 @@ fetch(API_URL)
         responsive: true,
         scales: {
           x: {
+            type: 'time',
+            time: {
+              unit: 'hour',
+              displayFormats: {
+                hour: 'MM/dd HH:mm'
+              },
+              tooltipFormat: 'MM/dd HH:mm'
+            },
+            ticks: {
+              source: 'auto',
+              autoSkip: true,
+              maxTicksLimit: 24
+            },
+            adapters: {},
             title: {
               display: true,
-              text: '日付'
+              text: '日時（1時間刻み）'
             }
           },
           y: {
