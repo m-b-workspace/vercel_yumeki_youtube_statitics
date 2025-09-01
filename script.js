@@ -66,7 +66,7 @@ fetch(API_URL)
           x: {
             title: {
               display: true,
-              text: '日付'
+              text: '日時'
             }
           },
           y: {
